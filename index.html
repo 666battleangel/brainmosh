@@ -10,9 +10,41 @@
 </head>
 
 <body>
-    <div id="um">
-        <p>meow</p>
+    <div id="lighting">
+        <img src="backgrounds/bglight.png"> > 
     </div>
+    <div id="container">
+        <div class="logIn">
+            <img src="UI/login.png" width="900px"> 
+            
+            <form id="inputFields" action="actionPage.php" method="post">
+                <div>
+                    <label for="email"></label>
+                    <input type="email" id="email" name="email" placeholder="Email" requird> 
+                </div>
+                <br>
+                <div>
+                    <label for="pass"></label>
+                    <input type="password" id="pass" name="pass" placeholder="Password" maxlength="16" required> 
+                </div>
+
+                <div class="submitInputFields">
+                    <button type="submit" id="logInButton">
+                        <a href=""><img src="buttons/arrow.png" width="70px"></a>
+                        </button>
+                    </div>
+            </form>
+        </div>
+        <div id="signUpLink">
+            <a href="signup.html">Don't have an account? Sign Up</a>
+        </div>
+    </div>
+    <div id="bgmusic">
+        <audio autoplay loop muted>
+            <source src="audio/Yeat - U Could Tell (INSTRUMENTAL).mp3">
+        </audio>
+    </div>
+
 </body>
 
 <script>

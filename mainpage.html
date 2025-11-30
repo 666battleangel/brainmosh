@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewsport" content="width=device width" initial-scale="1.O">
+    <title>BrainMosh</title>
+    <link rel="icon" href="">
+    <link href="mainpage.css" rel="stylesheet" type="text/css" media="all">
+</head>
+
+<body>
+
+    <div id="topBar">
+        <img src="UI/topbar.png" width="100%">
+        <div class="content">
+                <img src="buttons/coin.gif" width="90px"><p><b>LEARNER</b></p>
+
+                <div class="rightItems"> 
+                    <img src="buttons/audio.png" id="audioBtn" width="90px" alt="audio toggle">
+                    <img src="buttons/friends.png" id="friendsBtn" width="90px" alt="friends">
+                    <img src="buttons/settings.png" id="settingsBtn" width="90px" alt="settings">
+                </div>
+        </div>
+        
+        <div id="bgmusic">
+            <audio autoplay loop muted>
+            <source src="audio/Yeat - Familia (Instrumental).mp3">
+             </audio>
+        </div>
+
+        <div class="neon-boxes" aria-hidden="true">
+            <div class="neon-yellow">
+                <a href="shop.html"><p>Market</p></a>
+            </div></a>
+            <div class="neon-cyan">
+                <a href="customization.html"><p>Customize</p></a>
+            </div>
+        </div>
+
+        <div class="ready" id="readyBtn" role="button" aria-pressed="false" aria-controls="verse">
+            <img src="UI/ready.png" width="1000px" alt="Ready">
+        </div>
+
+    </div>
+
+    <div id="bottomR">
+        <div class="verse">
+            <p class="verse-text">VERSE!</p>
+        </div>
+
+        <div class="bgSwitch">
+            <p>Switch Backgrounds</p>
+            <img src="buttons/continue.png" width="190px">
+        </div>
+    </div>
+
+    <div id="sprite">
+        <img src="sprites/conceptSprite1.png" width="1000px">
+    </div>
+
+    <div id="friends">
+        <div class="black"></div>
+        <div class="innerContent">
+            <img src="UI/popUp.png" width="1800px">
+            <p>FRIENDS LIST</p>
+            <div class="friendUser">
+                <div class="pfp"></div>
+                    <p>@username</p>
+                    <p>offline</p>
+                    <p><i>VERSE!</i></p>
+            </div>
+        </div>
+    </div>
+
+    <div id="settings">
+        <div class="black1"></div>
+        <div class="innerContent1">
+            <img src="UI/popUp.png" width="1800px">
+            <p>SETTINGS</p>
+        </div>
+    </div>
+
+</body>
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    const audioBtn = document.getElementById('audioBtn');
+    const audioEl = document.querySelector('#bgmusic audio');
+    if (!audioBtn || !audioEl) return;
+
+    // ensure initial icon matches muted state (audio is muted by default in HTML)
+    function updateIcon() {
+        // show 'audioOff' when muted, 'audio' when unmuted
+        audioBtn.src = audioEl.muted ? 'buttons/audioOff.png' : 'buttons/audio.png';
+    }
+
+    updateIcon();
+
+    audioBtn.addEventListener('click', function () {
+        audioEl.muted = !audioEl.muted;
+        updateIcon();
+    });
+
+    // Ready button toggles the verse box
+    const readyBtn = document.getElementById('readyBtn');
+    const verseEl = document.querySelector('.verse');
+    if (readyBtn && verseEl) {
+        // initial state: hidden
+        verseEl.classList.remove('visible');
+        verseEl.setAttribute('aria-hidden', 'true');
+        readyBtn.setAttribute('aria-pressed', 'false');
+
+        readyBtn.addEventListener('click', function () {
+            const isNowVisible = verseEl.classList.toggle('visible');
+            verseEl.setAttribute('aria-hidden', String(!isNowVisible));
+            readyBtn.setAttribute('aria-pressed', String(isNowVisible));
+        });
+
+        // also allow keyboard activation
+        readyBtn.addEventListener('keydown', function (e) {
+            if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                readyBtn.click();
+            }
+        });
+    }
+
+    // FRIENDS popup: show when clicking the friends button or the .verse element
+    const friendsBtn = document.getElementById('friendsBtn');
+    const friendsContainer = document.getElementById('friends');
+    const blackOverlay = friendsContainer ? friendsContainer.querySelector('.black') : null;
+    const verseClick = document.querySelector('.verse');
+
+    function showFriends() {
+        if (!friendsContainer) return;
+        friendsContainer.classList.add('open');
+        // for accessibility
+        friendsContainer.setAttribute('aria-hidden', 'false');
+    }
+
+    function hideFriends() {
+        if (!friendsContainer) return;
+        friendsContainer.classList.remove('open');
+        friendsContainer.setAttribute('aria-hidden', 'true');
+    }
+
+    if (friendsBtn) {
+        friendsBtn.addEventListener('click', showFriends);
+    }
+
+    if (verseClick) {
+        verseClick.addEventListener('click', showFriends);
+    }
+
+    if (blackOverlay) {
+        // clicking on the dark backdrop hides the friends overlay
+        blackOverlay.addEventListener('click', hideFriends);
+    }
+
+    // allow ESC key to close the friends popup
+    document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape' || e.key === 'Esc') {
+            // only hide if friends popup is currently open
+            if (friendsContainer && friendsContainer.classList.contains('open')) {
+                hideFriends();
+            }
+        }
+    });
+
+    // SETTINGS popup: show when clicking the settings button
+    const settingssBtn = document.getElementById('settingsBtn');
+    const settingsContainer = document.getElementById('settings');
+
+    function showSettings() {
+        if (!settingsContainer) return;
+        settingsContainer.classList.add('open');
+        // for accessibility
+        settingsContainer.setAttribute('aria-hidden', 'false');
+    }
+
+    function hideSettings() {
+        if (!settingsContainer) return;
+        settingsContainer.classList.remove('open');
+        settingsContainer.setAttribute('aria-hidden', 'true');
+    }
+
+    if (settingsBtn) {
+        settingsBtn.addEventListener('click', showSettings);
+    }
+
+    // allow ESC key to close the friends popup
+    document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape' || e.key === 'Esc') {
+            // only hide if friends popup is currently open
+            if (settingsContainer && settingsContainer.classList.contains('open')) {
+                hideSettings();
+            }
+        }
+    });
+});
+</script>
+
+</html>

@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewsport" content="width=device width" initial-scale="1.O">
+    <title>BrainMosh</title>
+    <link rel="icon" href="">
+    <link href="shop.css" rel="stylesheet" type="text/css" media="all">
+
+<body>
+
+    <div id="topBar">
+        <img src="UI/topbar.png" width="100%">
+        <div class="content">
+                <img src="buttons/coin.gif" width="90px"><p><b>LEARNER</b></p>
+
+                <div class="rightItems"> 
+                    <img src="buttons/audio.png" id="audioBtn" width="90px" alt="audio toggle">
+                    <img src="buttons/friends.png" id="friendsBtn" width="90px" alt="friends">
+                    <img src="buttons/settings.png" id="settingsBtn" width="90px" alt="settings">
+                </div>
+        </div>
+        
+        <div id="bgmusic">
+            <audio autoplay loop muted>
+            <source src="audio/Yeat - Familia (Instrumental).mp3">
+             </audio>
+        </div>
+    </div>
+
+    <div id="title">
+        <h1>THE MARKET</h1>
+    </div>
+
+    <div class="shop-sections">
+        <section class="shop-section" id="skins">
+            <h2>Skins</h2>
+            <div class="items">
+                <div class="neon-item"></div>
+                <div class="neon-item"></div>
+                <div class="neon-item"></div>
+                <div class="neon-item"></div>
+            </div>
+        </section>
+
+        <section class="shop-section" id="sfx">
+            <h2>SFX</h2>
+            <div class="items">
+                <div class="neon-item"></div>
+                <div class="neon-item"></div>
+                <div class="neon-item"></div>
+                <div class="neon-item"></div>
+            </div>
+        </section>
+
+        <section class="shop-section" id="emote">
+            <h2>Emote</h2>
+            <div class="items">
+                <div class="neon-item"></div>
+                <div class="neon-item"></div>
+                <div class="neon-item"></div>
+                <div class="neon-item"></div>
+            </div>
+        </section>
+    </div>
+
+    <div id="back">
+        <p>BACK</p><a href="mainpage.html"><img src="buttons/arrow.png"></a>
+    </div>
+
+    <div id="friends">
+        <div class="black"></div>
+        <div class="innerContent">
+            <img src="UI/popUp.png" width="1800px">
+            <p>FRIENDS LIST</p>
+            <div class="friendUser">
+                <div class="pfp"></div>
+                    <p>@username</p>
+                    <p>offline</p>
+                    <p><i>VERSE!</i></p>
+            </div>
+        </div>
+    </div>
+
+    <div id="settings">
+        <div class="black1"></div>
+        <div class="innerContent1">
+            <img src="UI/popUp.png" width="1800px">
+            <p>SETTINGS</p>
+        </div>
+    </div>
+
+</body>
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    const audioBtn = document.getElementById('audioBtn');
+    const audioEl = document.querySelector('#bgmusic audio');
+    if (!audioBtn || !audioEl) return;
+
+    // ensure initial icon matches muted state (audio is muted by default in HTML)
+    function updateIcon() {
+        // show 'audioOff' when muted, 'audio' when unmuted
+        audioBtn.src = audioEl.muted ? 'buttons/audioOff.png' : 'buttons/audio.png';
+    }
+
+    updateIcon();
+
+    audioBtn.addEventListener('click', function () {
+        audioEl.muted = !audioEl.muted;
+        updateIcon();
+    });
+
+     // FRIENDS popup: show when clicking the friends button or the .verse element
+    const friendsBtn = document.getElementById('friendsBtn');
+    const friendsContainer = document.getElementById('friends');
+    const blackOverlay = friendsContainer ? friendsContainer.querySelector('.black') : null;
+    const verseClick = document.querySelector('.verse');
+
+    function showFriends() {
+        if (!friendsContainer) return;
+        friendsContainer.classList.add('open');
+        // for accessibility
+        friendsContainer.setAttribute('aria-hidden', 'false');
+    }
+
+    function hideFriends() {
+        if (!friendsContainer) return;
+        friendsContainer.classList.remove('open');
+        friendsContainer.setAttribute('aria-hidden', 'true');
+    }
+
+    if (friendsBtn) {
+        friendsBtn.addEventListener('click', showFriends);
+    }
+
+    if (verseClick) {
+        verseClick.addEventListener('click', showFriends);
+    }
+
+    if (blackOverlay) {
+        // clicking on the dark backdrop hides the friends overlay
+        blackOverlay.addEventListener('click', hideFriends);
+    }
+
+    // allow ESC key to close the friends popup
+    document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape' || e.key === 'Esc') {
+            // only hide if friends popup is currently open
+            if (friendsContainer && friendsContainer.classList.contains('open')) {
+                hideFriends();
+            }
+        }
+    });
+
+    // SETTINGS popup: show when clicking the settings button
+    const settingssBtn = document.getElementById('settingsBtn');
+    const settingsContainer = document.getElementById('settings');
+
+    function showSettings() {
+        if (!settingsContainer) return;
+        settingsContainer.classList.add('open');
+        // for accessibility
+        settingsContainer.setAttribute('aria-hidden', 'false');
+    }
+
+    function hideSettings() {
+        if (!settingsContainer) return;
+        settingsContainer.classList.remove('open');
+        settingsContainer.setAttribute('aria-hidden', 'true');
+    }
+
+    if (settingsBtn) {
+        settingsBtn.addEventListener('click', showSettings);
+    }
+
+    // allow ESC key to close the friends popup
+    document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape' || e.key === 'Esc') {
+            // only hide if friends popup is currently open
+            if (settingsContainer && settingsContainer.classList.contains('open')) {
+                hideSettings();
+            }
+        }
+    });
+});
+</script>
+
+</html>

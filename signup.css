@@ -1,0 +1,134 @@
+@import url('https://fonts.googleapis.com/css2?family=Pixelify+Sans&display=swap');
+
+html {
+    background-image: url(backgrounds/wall.gif);
+    background-size: cover;
+    height: 100%;
+}
+
+body {
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Pixelify Sans', Arial, sans-serif;
+    overflow: hidden; /* remove scrollbars */
+}
+
+body, input, button, textarea, select, label {
+    font-family: 'Pixelify Sans', Arial, sans-serif;
+}
+
+#signIn {
+    display: flex;
+    margin-left: 200px;
+}
+
+#lighting {
+    position: fixed;
+    inset: 0; 
+    width: 100%;
+    height: 100%;
+    z-index: 2; 
+    pointer-events: none;
+    display: block;
+}
+
+#lighting img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+#container {
+    position: absolute; 
+    width: 100%;
+    max-width: 1200px;
+}
+
+#inputFields {
+    margin-left: 135px;
+    margin-top: -20px;
+    padding: 12px 24px;
+    box-sizing: border-box;
+    overflow: hidden;
+    width: 395px;
+
+    background: linear-gradient(180deg, rgba(0,0,0,0.65), rgba(0,0,0,0.55));
+    border-radius: 10px;
+    border: 2px solid rgba(224, 75, 16, 0.664);
+    box-shadow: 0 12px 30px rgba(0,0,0,0.6), inset 0 1px 0 rgba(255,255,255,0.02);
+    backdrop-filter: blur(4px);
+    color: #ffffff;
+}
+
+#inputFields > div:last-of-type {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.submitInputFields {
+    position: absolute;
+    margin-top: -59.5px;
+    margin-left: 280px;
+}
+
+#logInButton {
+    border: none;
+    background: none;
+    padding: 0;
+    cursor: pointer;
+}
+
+#logInButton img {
+    display: block;
+}
+
+#inputFields input {
+    font-size: 20px;
+    padding: 10px 12px;
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 6px;
+    background: rgba(255,255,255,0.04);
+    color: #fff;
+    outline: none;
+}
+
+#inputFields input::placeholder {
+    color: rgba(255,255,255,0.6);
+}
+
+#logInLink {
+    position: absolute; 
+    margin-top: 10px;
+    margin-left: 205px;
+    color: white
+}
+
+#logInLink:link {
+  color: white;
+  background-color: transparent;
+  text-decoration: none;
+} 
+
+a:visited {
+  color: white;
+  background-color: transparent;
+  text-decoration: none;
+}
+
+a:hover {
+  color: rgb(189, 74, 38);
+  background-color: transparent;
+  text-decoration: underline;
+}
+
+a:active {
+  color: yellow;
+  background-color: transparent;
+  text-decoration: underline;
+}
