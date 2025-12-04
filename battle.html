@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html> 
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewsport" content="width=device width" initial-scale="1.O"> 
+    <title>BrainMosh</title>
+    <link rel="icon" href="">
+    <link href="battle.css" rel="stylesheet" type="text/css" media="all"> 
+</head>
+
+<body>
+
+    <div id="topBar">
+        <img src="UI/topbar.png" width="100%">
+        <div class="content">
+                <img src="buttons/coin.gif" width="90px"><p><b>LEARNER</b></p>
+
+                <div class="rightItems"> 
+                    <img src="buttons/audio.png" id="audioBtn" width="90px" alt="audio toggle">
+                    <img src="buttons/friends.png" id="friendsBtn" width="90px" alt="friends">
+                    <img src="buttons/settings.png" id="settingsBtn" width="90px" alt="settings">
+                </div>
+        </div>
+    </div>
+
+    <div id="player">
+        <img src="sprites/conceptSprite1.png" width="700px">
+    </div>
+
+    <div id="playerstats">
+        <p>You</p>
+        <div class="healthbar">
+            <p>100</p><img src="UI/health">
+        </div>
+    </div>
+
+    <div id="enemy">
+        <img src="sprites/conceptSprite1.png" width="700px">
+    </div>
+
+    <div id="enemystats">
+        <p>Bot123</p>
+        <div class="healthbar">
+            <p>100</p><img src="UI/health1">
+        </div>
+    </div>
+        
+    <div id="bgmusic">
+        <audio autoplay loop muted>
+        <source src="audio/Yeat - Familia (Instrumental).mp3">
+        </audio>
+     </div>
+
+</body>
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    const audioBtn = document.getElementById('audioBtn');
+    const audioEl = document.querySelector('#bgmusic audio');
+    if (!audioBtn || !audioEl) return;
+
+    // ensure initial icon matches muted state (audio is muted by default in HTML)
+    function updateIcon() {
+        // show 'audioOff' when muted, 'audio' when unmuted
+        audioBtn.src = audioEl.muted ? 'buttons/audioOff.png' : 'buttons/audio.png';
+    }
+
+    updateIcon();
+
+    audioBtn.addEventListener('click', function () {
+        audioEl.muted = !audioEl.muted;
+        updateIcon();
+    });
+});
+</script>

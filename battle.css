@@ -1,0 +1,64 @@
+@import url('https://fonts.googleapis.com/css2?family=Pixelify+Sans&display=swap');
+
+html {
+    background-image: url(backgrounds/bg2.jpeg);
+    background-size: contain;
+}
+
+html, body {
+    height: 100%;
+    margin: 0;
+    overflow: hidden;
+}
+
+body {
+    font-family: 'Pixelify Sans', Arial, sans-serif;
+}
+
+body, input, button, textarea, select, label {
+    font-family: 'Pixelify Sans', Arial, sans-serif;
+}
+
+#topBar {
+    position: absolute;
+    width: 100%;
+    top: -40px;
+}
+
+.content img[src="buttons/coin.gif"] {
+    position: relative;
+    top: -1275px;
+    left: 18px;
+}
+
+.content p {
+    position: relative;
+    font-size: 35px;
+    color: white;
+    top: -1378px;
+    left: 110px;
+}
+
+.rightItems {
+    position: relative;
+    top: -1480px;
+    left: 2260px; 
+}
+
+.rightItems img {
+    cursor: pointer;
+}
+
+#player {
+    position: absolute;
+    top: 25%;
+    left: 24%;
+    transform: translateX(-50%);
+}
+
+#enemy {
+    position: absolute;
+    top: 25%;
+    left: 75%;
+    transform: translateX(-50%);
+}
