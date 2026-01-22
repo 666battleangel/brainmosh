@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Pixelify+Sans&display=swap');
 
 html {
-    background-image: url(backgrounds/wall.gif);
+    background-image: url(backgrounds/bg1.png);
     background-size: cover;
     height: 100%;
 }
@@ -47,6 +47,8 @@ body, input, button, textarea, select, label {
     position: absolute; 
     width: 100%;
     max-width: 1200px;
+    top: 22%;
+    left: 36%;
 }
 
 #inputFields {
@@ -59,7 +61,7 @@ body, input, button, textarea, select, label {
 
     background: linear-gradient(180deg, rgba(0,0,0,0.65), rgba(0,0,0,0.55));
     border-radius: 10px;
-    border: 2px solid rgba(224, 75, 16, 0.664);
+    border: 2px solid rgba(81, 181, 240, 0.664);
     box-shadow: 0 12px 30px rgba(0,0,0,0.6), inset 0 1px 0 rgba(255,255,255,0.02);
     backdrop-filter: blur(4px);
     color: #ffffff;
@@ -122,7 +124,7 @@ a:visited {
 }
 
 a:hover {
-  color: rgb(189, 74, 38);
+  color: rgb(38, 98, 189);
   background-color: transparent;
   text-decoration: underline;
 }

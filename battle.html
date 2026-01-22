@@ -24,25 +24,45 @@
         </div>
     </div>
 
+    <div id="intro" class="introMsg">
+        <p><i>FIGHT!</i></p>
+    </div>
+
+    <div id="endMsg" class="introMsg" style="display:none;">
+        <p></p>
+    </div>
+
+    <div id="questionContainer">
+        <img src="UI/popUp.png" width="1600x">
+        <label id="question" class="question"></label>
+        <textarea name="answer" id="answer" class="answer" placeholder="Answer">
+        </textarea>
+        <div id="result"></div>
+    </div>
+
     <div id="player">
-        <img src="sprites/conceptSprite1.png" width="700px">
+        <img src="sprites/finalconcept1.gif" width="700px">
     </div>
 
     <div id="playerstats">
-        <p>You</p>
         <div class="healthbar">
-            <p>100</p><img src="UI/health">
+            <img src="UI/player100.png">
+        </div>
+        <div class="playerHealthNum">
+            <p>100</p>
         </div>
     </div>
 
     <div id="enemy">
-        <img src="sprites/conceptSprite1.png" width="700px">
+        <img src="sprites/finalconcept1.gif" width="700px">
     </div>
 
     <div id="enemystats">
-        <p>Bot123</p>
-        <div class="healthbar">
-            <p>100</p><img src="UI/health1">
+        <div class="healthbar1">
+            <img src="UI/enemy100.png">
+        </div>
+        <div class="enemyHealthNum">
+            <p>100</p>
         </div>
     </div>
         
@@ -52,12 +72,12 @@
         </audio>
      </div>
 
-</body>
-
 <script>
+
 document.addEventListener('DOMContentLoaded', function () {
     const audioBtn = document.getElementById('audioBtn');
     const audioEl = document.querySelector('#bgmusic audio');
+      
     if (!audioBtn || !audioEl) return;
 
     // ensure initial icon matches muted state (audio is muted by default in HTML)
@@ -72,5 +92,148 @@ document.addEventListener('DOMContentLoaded', function () {
         audioEl.muted = !audioEl.muted;
         updateIcon();
     });
+    
 });
+
+document.addEventListener("DOMContentLoaded", function () {
+    const intro = document.getElementById("intro");
+
+    setTimeout(function () {
+    intro.classList.add("hidden");
+
+    setTimeout(function () {
+        intro.remove(); 
+    }, 600);
+    }, 2000); 
+});
+
+  document.addEventListener('DOMContentLoaded', function () {
+    const questionLabel = document.getElementById('question');
+    const answerField   = document.getElementById('answer');
+    const resultBlock   = document.getElementById('result');
+
+    let correctAnswer = null;
+    let hideResultTimeout = null;
+    let questions = [];
+    let playerHealth = 100;
+    let enemyHealth = 100;
+    let questionTimer = null;
+
+    function showRandomQuestion() {
+      if (!questions.length) return;
+
+      const randomIndex = Math.floor(Math.random() * questions.length);
+      const q = questions[randomIndex];
+
+      questionLabel.textContent = q.text;
+      correctAnswer = String(q["answer"]).trim();
+
+      answerField.value = '';
+      resultBlock.textContent = '';
+      resultBlock.className = 'result';
+
+      answerField.focus();
+
+      if (questionTimer) clearTimeout(questionTimer);
+      questionTimer = setTimeout(() => {
+        playerHealth = Math.max(0, playerHealth - 25);
+        let imgSrc = `UI/player${playerHealth}.png`;
+        document.querySelector('#playerstats .healthbar img').src = imgSrc;
+        document.querySelector('#playerstats .playerHealthNum p').textContent = playerHealth;
+        if (playerHealth === 0) {
+          document.querySelector('#player img').src = 'sprites/player0.gif';
+          const endMsg = document.getElementById('endMsg');
+          if (questionTimer) clearTimeout(questionTimer);
+          if (hideResultTimeout) clearTimeout(hideResultTimeout);
+          setTimeout(() => {
+            endMsg.querySelector('p').textContent = 'DEFEAT';
+            endMsg.style.display = 'flex';
+            setTimeout(() => {
+              window.location.href = 'mainpage.html';
+            }, 500);
+          }, 1500);
+        } else {
+          showRandomQuestion();
+        }
+        questionTimer = null;
+      }, 10000);
+    }
+
+    fetch('questions.json')
+      .then(function (response) {
+        return response.json();
+      })
+      .then(function (data) {
+        questions = data.questions || [];
+        showRandomQuestion(); 
+      })
+      .catch(function (error) {
+        console.error('Error while loading questions.json:', error);
+        questionLabel.textContent = 'An error occurred while loading the question :(';
+      });
+
+    answerField.addEventListener('keydown', function (event) {
+      if (event.key === 'Enter' && !event.shiftKey) {
+        event.preventDefault();
+
+        if (correctAnswer === null) {
+          return; 
+        }
+
+        if (questionTimer) {
+          clearTimeout(questionTimer);
+          questionTimer = null;
+          enemyHealth = Math.max(0, enemyHealth - 25);
+          let imgSrc = `UI/enemy${enemyHealth}.png`;
+          document.querySelector('#enemystats .healthbar1 img').src = imgSrc;
+          document.querySelector('#enemystats .enemyHealthNum p').textContent = enemyHealth;
+          if (enemyHealth === 0) {
+            document.querySelector('#enemy img').src = 'sprites/enemy0.gif';
+            const endMsg = document.getElementById('endMsg');
+            if (hideResultTimeout) clearTimeout(hideResultTimeout);
+            setTimeout(() => {
+              endMsg.querySelector('p').textContent = 'VICTORY';
+              endMsg.style.display = 'flex';
+              setTimeout(() => {
+                window.location.href = 'mainpage.html';
+              }, 1500);
+            }, 1500);
+            return;
+          }
+        }
+
+        const userAnswer = answerField.value.trim();
+        const numUser = Number(userAnswer);
+        const numCorrect = Number(correctAnswer);
+        let isCorrect;
+
+        if (!Number.isNaN(numUser) && !Number.isNaN(numCorrect)) {
+          isCorrect = (numUser === numCorrect);
+        } else {
+          isCorrect = userAnswer.toLowerCase() === correctAnswer.toLowerCase();
+        }
+
+        if (isCorrect) {
+          resultBlock.textContent = '✅ Correct!';
+          resultBlock.className = 'result result-correct';
+        } else {
+          resultBlock.textContent = '❌ Incorrect, answer: ' + correctAnswer;
+          resultBlock.className = 'result result-wrong';
+        }
+
+        if (hideResultTimeout) {
+          clearTimeout(hideResultTimeout);
+        }
+        hideResultTimeout = setTimeout(function () {
+          resultBlock.textContent = '';
+          resultBlock.className = 'result';
+          showRandomQuestion();
+        }, 3000);
+      }
+    });
+  });
 </script>
+
+</body>
+
+</html>

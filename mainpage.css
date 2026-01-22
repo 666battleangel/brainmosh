@@ -237,7 +237,7 @@ body, input, button, textarea, select, label {
 .innerContent .friendUser p {
     font-size: 30px;
     color: white;
-    left: 180px;
+    left: 158px;
     top: -10px;
 }
 
@@ -249,12 +249,12 @@ body, input, button, textarea, select, label {
     left: 51px;
 }
 
-.innerContent .friendUser p i {
+.innerContent .friendUser i{
     font-size: 30px;
     color: rgb(171, 35, 189);
     position: absolute;
-    top: -10px;
-    left: 550px;
+    top: -1px;
+    left: 736px;
     cursor: pointer;
     padding: 10px;
     border: 2px solid rgba(171, 35, 189, 0.35);

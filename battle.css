@@ -59,6 +59,88 @@ body, input, button, textarea, select, label {
 #enemy {
     position: absolute;
     top: 25%;
-    left: 75%;
+    left: 80%;
     transform: translateX(-50%);
 }
+
+#playerstats {
+    position: absolute;
+    top: 67%;
+    left: 10%;
+    color: white;
+    font-size: 20px;
+    z-index: 5;
+}
+
+#enemystats {
+    position: absolute;
+    top: 67%;
+    left: 67%;
+    color: white;
+    font-size: 20px;
+    z-index: 5;
+}
+
+
+.introMsg {
+    position: fixed;
+    inset: 0; /* top:0 right:0 bottom:0 left:0 */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0, 0, 0, 0.8);
+    color: #fff;
+    font-size: 24px;
+    z-index: 9999;
+    opacity: 1;
+    transition: opacity 0.6s ease;
+}
+
+.intro-message.hidden {
+    opacity: 0;
+    pointer-events: none;
+}
+
+#questionContainer {
+    position: absolute;
+    bottom: 20%;
+    left: 50%;
+    transform: translateX(-50%);
+    text-align: center;
+    z-index: 9989;
+}
+
+.question {
+    position: absolute;
+    font-size: 30px;
+    color: white;
+    top: 170px;
+    left: 430px;
+}
+
+.answer {
+    position: absolute;
+    font-size: 30px;
+    color: black;
+    bottom: 225px;
+    width: 300px;
+    left: 660px;
+    height: 40px;
+    resize: none;
+    text-align: center;
+}
+
+.result {
+    position: absolute;
+      bottom: 200px;
+      left: 670px;
+      font-weight: 600;
+    }
+
+    .result-correct {
+      color: green;
+    }
+
+    .result-wrong {
+      color: red;
+    }

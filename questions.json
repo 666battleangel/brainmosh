@@ -1,0 +1,44 @@
+{
+  "questions": [
+    {
+      "id": 1,
+      "text": "Are 6/18 and 2/3 equivalent? (Y/N)",
+      "answer": "N"
+    },
+    {
+      "id": 2,
+      "text": "Are 5/7 and 15/21 equivalent (Y/N)",
+      "answer": "Y"
+    },
+    {
+      "id": 3,
+      "text": "What is 1/4 + 3/8",
+      "answer": "5/8"
+    },
+    {
+      "id": 4,
+      "text": "What is 3/4 ÷ 5/10?",
+      "answer": "3/2"
+    },
+    {
+      "id": 5,
+      "text": "What is 10/50 in decimal form?",
+      "answer": "0.2"
+    },
+    {
+      "id": 6,
+      "text": "What is 8/20 in decimal form?",
+      "answer": "0.4"
+    },
+    {
+      "id": 7,
+      "text": "What is 0.35 x 12?",
+      "answer": "4.2"
+    },
+    {
+      "id": 8,
+      "text": "What is 0.35 x 12?",
+      "answer": "4.2"
+    }
+  ]
+}
